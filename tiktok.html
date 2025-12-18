@@ -12,19 +12,13 @@
   box-sizing:border-box;
   font-family:"Segoe UI",Tahoma,sans-serif;
 }
-
 body{
   background:radial-gradient(circle at top,#06172a,#020617);
   color:#e5e7eb;
 }
+.app{display:flex;min-height:100vh}
 
-/* ===== Layout ===== */
-.app{
-  display:flex;
-  min-height:100vh;
-}
-
-/* ===== Sidebar ===== */
+/* Sidebar */
 .sidebar{
   width:260px;
   background:#020617;
@@ -32,22 +26,9 @@ body{
   display:flex;
   flex-direction:column;
 }
-
-.brand{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:30px;
-}
-
-.menu{
-  list-style:none;
-  flex:1;
-}
-
-.menu li{
-  margin-bottom:10px;
-}
-
+.brand{font-size:20px;font-weight:bold;margin-bottom:30px}
+.menu{list-style:none;flex:1}
+.menu li{margin-bottom:10px}
 .menu a{
   display:block;
   padding:12px;
@@ -55,22 +36,9 @@ body{
   color:#e5e7eb;
   text-decoration:none;
 }
-
-.menu li.active a,
-.menu a:hover{
-  background:#1e293b;
-}
-
-.sidebar-footer{
-  text-align:center;
-}
-
-.avatar{
-  width:60px;
-  border-radius:50%;
-  margin-bottom:10px;
-}
-
+.menu li.active a,.menu a:hover{background:#1e293b}
+.sidebar-footer{text-align:center}
+.avatar{width:60px;border-radius:50%;margin-bottom:10px}
 .logout-btn{
   margin-top:10px;
   width:100%;
@@ -82,39 +50,20 @@ body{
   cursor:pointer;
 }
 
-/* ===== Content ===== */
-.content{
-  flex:1;
-  padding:40px;
-}
-
-h1{
-  margin-bottom:30px;
-}
-
-/* ===== Grid ===== */
+/* Content */
+.content{flex:1;padding:40px}
+h1{margin-bottom:30px}
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:20px;
 }
-
 .card{
   background:#020617;
   padding:20px;
   border-radius:16px;
 }
-
-.card h3{
-  margin-bottom:6px;
-}
-
-.card p{
-  font-size:14px;
-  color:#94a3b8;
-  margin-bottom:10px;
-}
-
+.card p{font-size:14px;color:#94a3b8;margin-bottom:10px}
 .card input{
   width:100%;
   padding:10px;
@@ -122,7 +71,6 @@ h1{
   border:none;
   margin-bottom:10px;
 }
-
 .card button{
   width:100%;
   padding:10px;
@@ -133,124 +81,90 @@ h1{
   cursor:pointer;
 }
 
-/* ===== Mobile Header ===== */
+/* Mobile */
 .mobile-header{
   display:none;
   height:56px;
   background:#020617;
   align-items:center;
   padding:0 16px;
-  position:sticky;
-  top:0;
-  z-index:1000;
 }
+.menu-btn{font-size:26px;cursor:pointer}
 
-.menu-btn{
-  font-size:26px;
-  cursor:pointer;
-}
-
-/* ===== Mobile ===== */
 @media(max-width:768px){
-
-  .app{
-    display:block;
-  }
-
-  .sidebar{
-    width:100%;
-    height:100vh;
-    display:none;
-  }
-
-  .sidebar.mobile-show{
-    display:flex;
-  }
-
-  .content{
-    padding:20px;
-  }
-
-  .content.hide{
-    display:none;
-  }
-
-  .mobile-header{
-    display:flex;
-  }
+  .app{display:block}
+  .sidebar{width:100%;height:100vh;display:none}
+  .sidebar.mobile-show{display:flex}
+  .content.hide{display:none}
+  .mobile-header{display:flex}
 }
 </style>
 </head>
 
 <body onload="checkAuth()">
 
-<!-- Mobile Header -->
 <div class="mobile-header">
   <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </div>
 
 <div class="app">
 
-  <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
-    <div class="brand">⚡ Light Service </div>
+<aside class="sidebar" id="sidebar">
+  <div class="brand">⚡ Light Service</div>
 
-    <ul class="menu">
-      <li><a href="home.html">Home</a></li>
-      <li class="active"><a href="tiktok.html">TikTok</a></li>
-      <li><a href="orders.html">Orders</a></li>
-    </ul>
+  <ul class="menu">
+    <li><a href="home.html">Home</a></li>
+    <li class="active"><a href="tiktok.html">TikTok</a></li>
+    <li><a href="orders.html">Orders</a></li>
+  </ul>
 
-    <div class="sidebar-footer">
-      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="avatar">
-      <div id="userId">ID:</div>
-      <div id="username">User</div>
-      <button class="logout-btn" onclick="logout()">Sign Out</button>
-    </div>
-  </aside>
+  <div class="sidebar-footer">
+    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="avatar">
+    <div id="userId"></div>
+    <div id="username"></div>
+    <button class="logout-btn" onclick="logout()">Sign Out</button>
+  </div>
+</aside>
 
-  <!-- Content -->
-  <main class="content">
+<main class="content">
+<h1>TikTok Services</h1>
 
-    <h1>TikTok Services</h1>
+<div class="grid">
 
-    <div class="grid">
+  <div class="card">
+    <h3>Followers</h3>
+    <p>100 / 24 hours</p>
+    <input id="link" placeholder="Profile link">
+    <input id="qty" type="number" placeholder="Quantity">
+    <button onclick="placeOrder('Followers','متابعين',100,1440)">Order</button>
+  </div>
 
-      <div class="card">
-        <h3>Followers</h3>
-        <p>Limit: 100 / 24 hours</p>
-        <input type="text" id="followersLink" placeholder="Profile link">
-        <input type="number" id="followersQty" placeholder="Quantity (max 100)">
-        <button onclick="orderService('Followers',100,1440,'followersLink','followersQty')">Order</button>
-      </div>
+  <div class="card">
+    <h3>Likes</h3>
+    <p>50 / 15 minutes</p>
+    <input id="link" placeholder="Post link">
+    <input id="qty" type="number">
+    <button onclick="placeOrder('Likes','لايكات',50,15)">Order</button>
+  </div>
 
-      <div class="card">
-        <h3>Likes</h3>
-        <p>Limit: 50 / 15 minutes</p>
-        <input type="text" id="likesLink" placeholder="Post link">
-        <input type="number" id="likesQty" placeholder="Quantity (max 50)">
-        <button onclick="orderService('Likes',50,15,'likesLink','likesQty')">Order</button>
-      </div>
+  <div class="card">
+    <h3>Views</h3>
+    <p>2000 / 1 hour</p>
+    <input id="link" placeholder="Video link">
+    <input id="qty" type="number">
+    <button onclick="placeOrder('Views','مشاهدات',2000,60)">Order</button>
+  </div>
 
-      <div class="card">
-        <h3>Views</h3>
-        <p>Limit: 2000 / 1 hour</p>
-        <input type="text" id="viewsLink" placeholder="Video link">
-        <input type="number" id="viewsQty" placeholder="Quantity (max 2000)">
-        <button onclick="orderService('Views',2000,60,'viewsLink','viewsQty')">Order</button>
-      </div>
+  <div class="card">
+    <h3>Favorites</h3>
+    <p>200 / 15 minutes</p>
+    <input id="link" placeholder="Post link">
+    <input id="qty" type="number">
+    <button onclick="placeOrder('Favorites','مفضلات',200,15)">Order</button>
+  </div>
 
-      <div class="card">
-        <h3>Favorites</h3>
-        <p>Limit: 200 / 15 minutes</p>
-        <input type="text" id="favLink" placeholder="Post link">
-        <input type="number" id="favQty" placeholder="Quantity (max 200)">
-        <button onclick="orderService('Favorites',200,15,'favLink','favQty')">Order</button>
-      </div>
-
-    </div>
-
-  </main>
+</div>
+</main>
 </div>
 
 <script>
@@ -260,7 +174,7 @@ function toggleMenu(){
 }
 </script>
 
-<script src="auth.js"></script>
 <script src="orders.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
