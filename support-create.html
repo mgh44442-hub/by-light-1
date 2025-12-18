@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create User</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="checkSupportAuth();loadUsers()">
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">⚡ SUPPORT</div>
+
+    <ul class="menu">
+      <li><a href="support-dashboard.html">Dashboard</a></li>
+      <li><a href="support-users.html">Users</a></li>
+      <li><a href="support-orders.html">Orders</a></li>
+      <li class="active"><a href="support-create.html">Create User</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="supportLogout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <h1>Create New User</h1>
+
+    <!-- Create box -->
+    <div class="card create-box">
+      <input id="newUser" placeholder="Username">
+      <input id="newPass" type="password" placeholder="Password">
+      <button onclick="createUser()">Create Account</button>
+    </div>
+
+    <!-- Users list -->
+    <h2 style="margin-top:30px">Created Users</h2>
+    <div id="usersList" class="grid"></div>
+
+  </main>
+
+</div>
+
+<script src="support.js"></script>
+</body>
+</html>

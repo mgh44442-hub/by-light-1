@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Orders</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",Tahoma,sans-serif;
+}
+
+body{
+  background:radial-gradient(circle at top,#06172a,#020617);
+  color:#e5e7eb;
+}
+
+/* ===== Layout ===== */
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ===== Sidebar ===== */
+.sidebar{
+  width:260px;
+  background:#020617;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+}
+
+.brand{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:30px;
+}
+
+.menu{
+  list-style:none;
+  flex:1;
+}
+
+.menu li{
+  margin-bottom:10px;
+}
+
+.menu a{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  color:#e5e7eb;
+  text-decoration:none;
+}
+
+.menu li.active a,
+.menu a:hover{
+  background:#1e293b;
+}
+
+.sidebar-footer{
+  text-align:center;
+}
+
+.avatar{
+  width:60px;
+  border-radius:50%;
+  margin-bottom:10px;
+}
+
+.logout-btn{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#7f1d1d;
+  color:#fff;
+  cursor:pointer;
+}
+
+/* ===== Content ===== */
+.content{
+  flex:1;
+  padding:40px;
+}
+
+h1{
+  margin-bottom:30px;
+}
+
+/* ===== Orders Grid ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#020617;
+  padding:20px;
+  border-radius:16px;
+  font-size:14px;
+}
+
+.card p{
+  margin-bottom:6px;
+}
+
+.empty{
+  opacity:.7;
+  font-size:15px;
+}
+
+/* ===== Mobile Header ===== */
+.mobile-header{
+  display:none;
+  height:56px;
+  background:#020617;
+  align-items:center;
+  padding:0 16px;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.menu-btn{
+  font-size:26px;
+  cursor:pointer;
+}
+
+/* ===== Mobile ===== */
+@media(max-width:768px){
+
+  .app{
+    display:block;
+  }
+
+  .sidebar{
+    width:100%;
+    height:100vh;
+    display:none;
+  }
+
+  .sidebar.mobile-show{
+    display:flex;
+  }
+
+  .content{
+    padding:20px;
+  }
+
+  .content.hide{
+    display:none;
+  }
+
+  .mobile-header{
+    display:flex;
+  }
+}
+</style>
+</head>
+
+<body onload="initPage()">
+
+<!-- Mobile Header -->
+<div class="mobile-header">
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+</div>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">⚡ Light Service </div>
+
+    <ul class="menu">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="tiktok.html">TikTok</a></li>
+      <li class="active"><a href="orders.html">Orders</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" class="avatar">
+      <div id="userId">ID:</div>
+      <div id="username">User</div>
+      <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+    <h1>My Orders</h1>
+    <div class="grid" id="ordersGrid"></div>
+  </main>
+
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById("sidebar").classList.toggle("mobile-show");
+  document.querySelector(".content").classList.toggle("hide");
+}
+
+/* ===== Init ===== */
+function initPage(){
+  checkAuth();
+  loadOrders();
+  loadUserInfo();
+}
+
+/* ===== Orders ===== */
+function loadOrders(){
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+  const orders = JSON.parse(localStorage.getItem("orders")) || [];
+  const grid = document.getElementById("ordersGrid");
+
+  grid.innerHTML = "";
+
+  if(!user){
+    grid.innerHTML = "<p class='empty'>يجب تسجيل الدخول</p>";
+    return;
+  }
+
+  const myOrders = orders.filter(o => o.userId === user.id);
+
+  if(myOrders.length === 0){
+    grid.innerHTML = "<p class='empty'>لا توجد طلبات حتى الآن</p>";
+    return;
+  }
+
+  myOrders.forEach(o => {
+    grid.innerHTML += `
+      <div class="card">
+        <p><strong>نوع الخدمة :</strong> ${translateService(o.service)}</p>
+        <p><strong>السعر :</strong> مجاني </p>
+        <p><strong>الكمية :</strong> ${o.qty}</p>
+        <p><strong>الرابط :</strong> ${o.link}</p>
+        <p><strong>الحالة :</strong> ${o.status}</p>
+        <p><strong>تاريخ الطلب :</strong> ${o.created}</p>
+      </div>
+    `;
+  });
+}
+
+function translateService(service){
+  if(service==="Followers") return "متابعين";
+  if(service==="Likes") return "لايكات";
+  if(service==="Views") return "مشاهدات";
+  if(service==="Favorites") return "مفضلات";
+  return service;
+}
+
+/* ===== User Info ===== */
+function loadUserInfo(){
+  const user = JSON.parse(localStorage.getItem("loggedUser"));
+  if(!user) return;
+
+  document.getElementById("userId").innerText = "ID: " + user.id;
+  document.getElementById("username").innerText = user.user;
+}
+</script>
+
+<script src="auth.js"></script>
+</body>
+</html>

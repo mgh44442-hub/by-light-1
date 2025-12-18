@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Support Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkSupportAuth()">
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">⚡ SUPPORT</div>
+
+    <ul class="menu">
+      <li class="active"><a href="support-dashboard.html">Dashboard</a></li>
+      <li><a href="support-users.html">Users</a></li>
+      <li><a href="support-orders.html">Orders</a></li>
+      <li><a href="support-create.html">Create User</a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="username">Support</div>
+      <button class="logout-btn" onclick="supportLogout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h1>Welcome Support 👋</h1>
+    <p>Manage users and orders from here.</p>
+
+    <div class="grid">
+      <div class="card">👤 Users Management</div>
+      <div class="card">📦 Orders Review</div>
+      <div class="card">➕ Create Accounts</div>
+    </div>
+  </main>
+
+</div>
+
+<script src="support.js"></script>
+</body>
+</html>

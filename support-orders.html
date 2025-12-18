@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Orders</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkSupportAuth();loadOrders()">
+
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">⚡ SUPPORT</div>
+    <ul class="menu">
+      <li><a href="support-dashboard.html">Dashboard</a></li>
+      <li><a href="support-users.html">Users</a></li>
+      <li class="active"><a href="support-orders.html">Orders</a></li>
+      <li><a href="support-create.html">Create User</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <h1>Orders Review</h1>
+    <div id="ordersList" class="grid"></div>
+  </main>
+
+</div>
+
+<script src="support.js"></script>
+</body>
+</html>
